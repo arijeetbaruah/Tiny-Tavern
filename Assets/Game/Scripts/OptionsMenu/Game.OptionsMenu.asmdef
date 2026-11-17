@@ -1,0 +1,20 @@
+{
+    "name": "Game.OptionsMenu",
+    "rootNamespace": "Game.OptionsMenu",
+    "references": [
+        "GUID:987b454aae3af4545a97f234bf030f57",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Newtonsoft.Json.dll",
+        "Zenject-usage.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
