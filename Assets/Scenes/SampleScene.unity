@@ -543,6 +543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.Global.Config::Game.Global.Config.ProjectInstaller
   _globalConfig: {fileID: 11400000, guid: a9a9fd7d0592a7745974685598411207, type: 2}
   _optionsMenuUI: {fileID: 2035673389675610585, guid: 2c2121711bc637c47839a69332f94e98, type: 3}
+  _themeSettings: {fileID: 11400000, guid: e8d29cfff6b2e0b44b760336e99daa64, type: 2}
 --- !u!4 &1990923263
 Transform:
   m_ObjectHideFlags: 0

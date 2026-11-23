@@ -1,15 +1,17 @@
 using System;
+using Game.PanelSystem;
 using UnityEngine;
 using Zenject;
 
 namespace Game.OptionsMenu
 {
-    public class OptionsMenuUI : MonoBehaviour
+    public class OptionsMenuUI : BasePanel
     {
         private OptionMenuDataService _optionMenuDataService;
+
+        private OptionMenuSaveData Data => _optionMenuDataService.SaveData;
         
-        [Inject]
-        public void Construct(OptionMenuDataService optionMenuDataService)
+        public void Initalize(OptionMenuDataService optionMenuDataService)
         {
             _optionMenuDataService = optionMenuDataService;
         }
@@ -17,10 +19,6 @@ namespace Game.OptionsMenu
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
-        }
-
-        public class OptionsMenuFactory : Factory<OptionsMenuUI>
-        {
         }
     }
 }

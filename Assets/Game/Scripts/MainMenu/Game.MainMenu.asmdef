@@ -1,0 +1,17 @@
+{
+    "name": "Game.MainMenu",
+    "rootNamespace": "Game.MainMenu",
+    "references": [
+        "GUID:da318e884b9b553459e52eb9110cdaa3",
+        "GUID:92c227281f2dd304899fa61d7c0a8a82"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

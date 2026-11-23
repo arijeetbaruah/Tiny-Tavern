@@ -11,20 +11,20 @@ namespace Game.OptionsMenu
     {
         private OptionMenuSaveData _saveData;
         private SaveLoadSystem _saveLoadSystem;
-        private OptionsMenuUI.OptionsMenuFactory _optionsMenuUIFactory;
+        public OptionsMenuUI OptionsMenuUI { get; private set; }
         
         public OptionMenuSaveData SaveData => _saveData;
 
-        public OptionMenuDataService(SaveLoadSystem saveLoadSystem, OptionsMenuUI.OptionsMenuFactory optionsMenuUIFactory)
+        public OptionMenuDataService(SaveLoadSystem saveLoadSystem, OptionsMenuUI optionsMenuUI)
         {
             _saveLoadSystem = saveLoadSystem;
-            _optionsMenuUIFactory = optionsMenuUIFactory;
+            OptionsMenuUI = optionsMenuUI;
         }
 
         public async void Initialize()
         {
             await LoadOptions();
-            _optionsMenuUIFactory.Create();
+            OptionsMenuUI.Initalize(this);
         }
 
         private async Task LoadOptions()
