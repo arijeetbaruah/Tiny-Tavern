@@ -1,7 +1,10 @@
 {
     "name": "Game.PanelSystem",
     "rootNamespace": "Game.PanelSystem",
-    "references": [],
+    "references": [
+        "GUID:49b22ccecff973a4c9cbd6e88dc243ae",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

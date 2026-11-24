@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Game.InputSystem;
+using UnityEngine.InputSystem;
 using Zenject;
 
 namespace Game.PanelSystem
@@ -26,6 +28,13 @@ namespace Game.PanelSystem
         /// </summary>
         public IPanel Top => _panels.Count > 0 ? _panels[_panels.Count - 1] : null;
 
+        private InputSettingService _inputSettingService;
+
+        public PanelManager(InputSettingService inputSettingService)
+        {
+            _inputSettingService = inputSettingService;
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PanelManager"/> class
         /// and subscribes to panel close events.
@@ -33,6 +42,9 @@ namespace Game.PanelSystem
         public void Initialize()
         {
             BasePanel.OnPanelClosed += HandlePanelClosed;
+            _inputSettingService.InputSettings.PanelController.Back.performed += OnBackPressed;
+            _inputSettingService.InputSettings.PanelController.Enable();
+            _inputSettingService.InputSettings.PanelController.Back.Enable();
         }
 
         /// <summary>
@@ -44,7 +56,15 @@ namespace Game.PanelSystem
         /// </remarks>
         public void Dispose()
         {
+            _inputSettingService.InputSettings.PanelController.Back.Disable();
+            _inputSettingService.InputSettings.PanelController.Disable();
+            _inputSettingService.InputSettings.PanelController.Back.performed -= OnBackPressed;
             BasePanel.OnPanelClosed -= HandlePanelClosed;
+        }
+
+        private void OnBackPressed(InputAction.CallbackContext obj)
+        {
+            OnBackPressed();
         }
 
         /// <summary>

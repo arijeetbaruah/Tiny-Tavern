@@ -162,6 +162,35 @@ namespace Game.InputSystem
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""PanelController"",
+            ""id"": ""360c0003-d497-4cf3-b225-6e028e713ef7"",
+            ""actions"": [
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""34c02405-2abd-4a2f-b28d-243768af39f5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a16227a8-2ca2-42f5-8c19-8b2c1387bf51"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC"",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -186,11 +215,15 @@ namespace Game.InputSystem
             // Player Control
             m_PlayerControl = asset.FindActionMap("Player Control", throwIfNotFound: true);
             m_PlayerControl_Move = m_PlayerControl.FindAction("Move", throwIfNotFound: true);
+            // PanelController
+            m_PanelController = asset.FindActionMap("PanelController", throwIfNotFound: true);
+            m_PanelController_Back = m_PanelController.FindAction("Back", throwIfNotFound: true);
         }
 
         ~@InputSettings()
         {
             UnityEngine.Debug.Assert(!m_PlayerControl.enabled, "This will cause a leak and performance issues, InputSettings.PlayerControl.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_PanelController.enabled, "This will cause a leak and performance issues, InputSettings.PanelController.Disable() has not been called.");
         }
 
         /// <summary>
@@ -358,6 +391,102 @@ namespace Game.InputSystem
         /// Provides a new <see cref="PlayerControlActions" /> instance referencing this action map.
         /// </summary>
         public PlayerControlActions @PlayerControl => new PlayerControlActions(this);
+
+        // PanelController
+        private readonly InputActionMap m_PanelController;
+        private List<IPanelControllerActions> m_PanelControllerActionsCallbackInterfaces = new List<IPanelControllerActions>();
+        private readonly InputAction m_PanelController_Back;
+        /// <summary>
+        /// Provides access to input actions defined in input action map "PanelController".
+        /// </summary>
+        public struct PanelControllerActions
+        {
+            private @InputSettings m_Wrapper;
+
+            /// <summary>
+            /// Construct a new instance of the input action map wrapper class.
+            /// </summary>
+            public PanelControllerActions(@InputSettings wrapper) { m_Wrapper = wrapper; }
+            /// <summary>
+            /// Provides access to the underlying input action "PanelController/Back".
+            /// </summary>
+            public InputAction @Back => m_Wrapper.m_PanelController_Back;
+            /// <summary>
+            /// Provides access to the underlying input action map instance.
+            /// </summary>
+            public InputActionMap Get() { return m_Wrapper.m_PanelController; }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+            public void Enable() { Get().Enable(); }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+            public void Disable() { Get().Disable(); }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+            public bool enabled => Get().enabled;
+            /// <summary>
+            /// Implicitly converts an <see ref="PanelControllerActions" /> to an <see ref="InputActionMap" /> instance.
+            /// </summary>
+            public static implicit operator InputActionMap(PanelControllerActions set) { return set.Get(); }
+            /// <summary>
+            /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+            /// </summary>
+            /// <param name="instance">Callback instance.</param>
+            /// <remarks>
+            /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+            /// </remarks>
+            /// <seealso cref="PanelControllerActions" />
+            public void AddCallbacks(IPanelControllerActions instance)
+            {
+                if (instance == null || m_Wrapper.m_PanelControllerActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_PanelControllerActionsCallbackInterfaces.Add(instance);
+                @Back.started += instance.OnBack;
+                @Back.performed += instance.OnBack;
+                @Back.canceled += instance.OnBack;
+            }
+
+            /// <summary>
+            /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+            /// </summary>
+            /// <remarks>
+            /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+            /// </remarks>
+            /// <seealso cref="PanelControllerActions" />
+            private void UnregisterCallbacks(IPanelControllerActions instance)
+            {
+                @Back.started -= instance.OnBack;
+                @Back.performed -= instance.OnBack;
+                @Back.canceled -= instance.OnBack;
+            }
+
+            /// <summary>
+            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="PanelControllerActions.UnregisterCallbacks(IPanelControllerActions)" />.
+            /// </summary>
+            /// <seealso cref="PanelControllerActions.UnregisterCallbacks(IPanelControllerActions)" />
+            public void RemoveCallbacks(IPanelControllerActions instance)
+            {
+                if (m_Wrapper.m_PanelControllerActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            /// <summary>
+            /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+            /// </summary>
+            /// <remarks>
+            /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+            /// </remarks>
+            /// <seealso cref="PanelControllerActions.AddCallbacks(IPanelControllerActions)" />
+            /// <seealso cref="PanelControllerActions.RemoveCallbacks(IPanelControllerActions)" />
+            /// <seealso cref="PanelControllerActions.UnregisterCallbacks(IPanelControllerActions)" />
+            public void SetCallbacks(IPanelControllerActions instance)
+            {
+                foreach (var item in m_Wrapper.m_PanelControllerActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_PanelControllerActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        /// <summary>
+        /// Provides a new <see cref="PanelControllerActions" /> instance referencing this action map.
+        /// </summary>
+        public PanelControllerActions @PanelController => new PanelControllerActions(this);
         private int m_PCSchemeIndex = -1;
         /// <summary>
         /// Provides access to the input control scheme.
@@ -385,6 +514,21 @@ namespace Game.InputSystem
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnMove(InputAction.CallbackContext context);
+        }
+        /// <summary>
+        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "PanelController" which allows adding and removing callbacks.
+        /// </summary>
+        /// <seealso cref="PanelControllerActions.AddCallbacks(IPanelControllerActions)" />
+        /// <seealso cref="PanelControllerActions.RemoveCallbacks(IPanelControllerActions)" />
+        public interface IPanelControllerActions
+        {
+            /// <summary>
+            /// Method invoked when associated input action "Back" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnBack(InputAction.CallbackContext context);
         }
     }
 }

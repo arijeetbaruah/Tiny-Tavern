@@ -19,6 +19,18 @@ MonoBehaviour:
     m_Key: ui.optionmenu.title
     m_Metadata:
       m_Items: []
+  - m_Id: 393310219796480
+    m_Key: ui.optionmenu.graphic.resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 393403228487680
+    m_Key: ui.optionmenu.graphic.Fullscreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 393492080623616
+    m_Key: ui.optionmenu.tabs.graphic
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -74,6 +74,35 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "PanelController",
+            "id": "360c0003-d497-4cf3-b225-6e028e713ef7",
+            "actions": [
+                {
+                    "name": "Back",
+                    "type": "PassThrough",
+                    "id": "34c02405-2abd-4a2f-b28d-243768af39f5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a16227a8-2ca2-42f5-8c19-8b2c1387bf51",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

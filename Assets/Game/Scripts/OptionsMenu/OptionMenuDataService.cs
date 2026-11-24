@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Game.SaveLoad;
 using Newtonsoft.Json;
@@ -14,17 +15,42 @@ namespace Game.OptionsMenu
         public OptionsMenuUI OptionsMenuUI { get; private set; }
         
         public OptionMenuSaveData SaveData => _saveData;
+        
+        private readonly Resolution[] _availableResolutions = null;
+        private List<Resolution> _filteredResolutions = new();
+        private int _currentResolutionIndex = 0;
+        
+        public IReadOnlyList<Resolution> Resolutions => _filteredResolutions;
 
         public OptionMenuDataService(SaveLoadSystem saveLoadSystem, OptionsMenuUI optionsMenuUI)
         {
             _saveLoadSystem = saveLoadSystem;
             OptionsMenuUI = optionsMenuUI;
+            _availableResolutions = Screen.resolutions;
         }
 
         public async void Initialize()
         {
             await LoadOptions();
+            
+            UpdateResolutions();
+
             OptionsMenuUI.Initalize(this);
+        }
+
+        private void UpdateResolutions()
+        {
+            _filteredResolutions.Clear();
+            List<string> options = new List<string>();
+            for (int i = 0; i < _availableResolutions.Length; i++)
+            {
+                string option = _availableResolutions[i].width + " x " + _availableResolutions[i].height;
+                if (!options.Contains(option))
+                {
+                    options.Add(option);
+                    _filteredResolutions.Add(_availableResolutions[i]);
+                }
+            }
         }
 
         private async Task LoadOptions()

@@ -22,6 +22,18 @@ MonoBehaviour:
     m_Localized: Options Menu
     m_Metadata:
       m_Items: []
+  - m_Id: 393310219796480
+    m_Localized: Resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 393403228487680
+    m_Localized: Full Screen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 393492080623616
+    m_Localized: Graphics
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
