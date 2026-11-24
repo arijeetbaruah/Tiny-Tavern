@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-German (de)
   m_GUID: c342c6235a345fb4cacdb98ddb27d679
   m_SerializeEntries:
+  - m_GUID: 62f0742a2f9d39944a8d7dd704a5ae32
+    m_Address: MainMenu_de
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-de
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: aa26f7f641bbdb948a9e01fce6094372
     m_Address: OptionsMenu_de
     m_ReadOnly: 1

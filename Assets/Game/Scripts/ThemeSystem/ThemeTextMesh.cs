@@ -5,22 +5,9 @@ using Zenject;
 
 namespace Game.ThemeSystem
 {
-    public class ThemeTextMesh : MonoBehaviour
+    public class ThemeTextMesh : BaseThemeElement
     {
         [SerializeField] private TextMeshProUGUI _textMesh;
-
-        private ThemeSettings _themeSettings;
-        
-        [Inject]
-        public void Construct(ThemeSettings themeSettings)
-        {
-            _themeSettings = themeSettings;
-        }
-
-        private void Start()
-        {
-            ApplyTheme();
-        }
 
         public void SetText(string text)
         {
@@ -28,7 +15,7 @@ namespace Game.ThemeSystem
             ApplyTheme();
         }
 
-        private void ApplyTheme()
+        protected override void ApplyTheme()
         {
             _textMesh.color = _themeSettings.TextColor;
         }

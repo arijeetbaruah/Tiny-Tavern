@@ -13,3 +13,10 @@ MonoBehaviour:
   m_Name: ThemeSettings
   m_EditorClassIdentifier: Game.ThemeSystem::Game.ThemeSystem.ThemeSettings
   _textColor: {r: 0.961, g: 0.902, b: 0.788, a: 1}
+  _buttonTypes:
+  - Name: primary
+    Text: {r: 0.435, g: 0.161, b: 0.063, a: 1}
+    BG: {r: 0.314, g: 0.427, b: 0.31, a: 1}
+  - Name: secondary
+    Text: {r: 0.165, g: 0.271, b: 0.11, a: 1}
+    BG: {r: 0.545, g: 0.329, b: 0.318, a: 1}
