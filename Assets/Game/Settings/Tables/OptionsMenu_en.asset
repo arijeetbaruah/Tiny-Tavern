@@ -34,6 +34,10 @@ MonoBehaviour:
     m_Localized: Graphics
     m_Metadata:
       m_Items: []
+  - m_Id: 407957173960704
+    m_Localized: Audio
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Game.OptionsMenu
 {
-    public class GraphicsTab : MonoBehaviour
+    public class GraphicsTab : MonoBehaviour, IOptionTab
     {
         [SerializeField] private TMP_Dropdown _resolutionDropdown;
         [SerializeField] private Toggle _fullscreenToggle;
@@ -22,9 +22,19 @@ namespace Game.OptionsMenu
             InitializeFullscreenToggle();
         }
 
+        public void Open()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void Close()
+        {
+            gameObject.SetActive(false);
+        }
+
         private void InitializeFullscreenToggle()
         {
-            _fullscreenToggle.isOn = _optionMenuDataService.SaveData.GraphicsTab.Fullscreen;
+            _fullscreenToggle.isOn = Data.GraphicsTab.Fullscreen;
         }
         
         private void InitializeResolution()
@@ -38,8 +48,8 @@ namespace Game.OptionsMenu
             for (int index = 0; index < _resolutionDropdown.options.Count; index++)
             {
                 var resolution = _optionMenuDataService.Resolutions[index];
-                if (resolution.width == _optionMenuDataService.SaveData.GraphicsTab.ResolutionWidth &&
-                    resolution.height == _optionMenuDataService.SaveData.GraphicsTab.ResolutionHeight)
+                if (resolution.width == Data.GraphicsTab.ResolutionWidth &&
+                    resolution.height == Data.GraphicsTab.ResolutionHeight)
                 {
                     selectedIndex = index;
                     break;

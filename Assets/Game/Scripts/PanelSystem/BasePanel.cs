@@ -1,4 +1,5 @@
 using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Game.PanelSystem
@@ -62,7 +63,7 @@ namespace Game.PanelSystem
     /// Derive from this class and override the virtual methods to add animations,
     /// initialization, or custom back-button behavior.
     /// </remarks>
-    public abstract class BasePanel : MonoBehaviour, IPanel
+    public abstract class BasePanel : SerializedMonoBehaviour, IPanel
     {
         /// <summary>
         /// Raised after any panel has been opened.

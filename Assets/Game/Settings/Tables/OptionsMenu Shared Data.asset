@@ -31,6 +31,10 @@ MonoBehaviour:
     m_Key: ui.optionmenu.tabs.graphic
     m_Metadata:
       m_Items: []
+  - m_Id: 407957173960704
+    m_Key: ui.optionmenu.tabs.audio
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
