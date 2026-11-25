@@ -8,6 +8,16 @@ namespace Game.OptionsMenu
         public VolumeTabSaveData VolumeTab = new ();
         public GraphicsTabSaveData GraphicsTab = new ();
 
+        public static bool operator ==(OptionMenuSaveData left, OptionMenuSaveData right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(OptionMenuSaveData left, OptionMenuSaveData right)
+        {
+            return !left.Equals(right);
+        }
+        
         public bool Equals(OptionMenuSaveData other)
         {
             if (other is null) return false;
@@ -26,6 +36,16 @@ namespace Game.OptionsMenu
         public override int GetHashCode()
         {
             return HashCode.Combine(VolumeTab, GraphicsTab);
+        }
+
+        public OptionMenuSaveData Clone()
+        {
+            OptionMenuSaveData clone = new()
+            {
+                VolumeTab = VolumeTab.Clone(),
+                GraphicsTab = GraphicsTab.Clone()
+            };
+            return clone;
         }
     }
 
@@ -54,6 +74,18 @@ namespace Game.OptionsMenu
         {
             return HashCode.Combine(MasterVolume, MusicVolume, SFXVolume);
         }
+
+        public VolumeTabSaveData Clone()
+        {
+            VolumeTabSaveData clone = new()
+            {
+                MasterVolume = MasterVolume,
+                MusicVolume = MusicVolume,
+                SFXVolume = SFXVolume
+            };
+            
+            return clone;
+        }
     }
     
     public class GraphicsTabSaveData : IEquatable<GraphicsTabSaveData>
@@ -81,6 +113,18 @@ namespace Game.OptionsMenu
         public override int GetHashCode()
         {
             return HashCode.Combine(Quality, ResolutionWidth, ResolutionHeight, Fullscreen);
+        }
+
+        public GraphicsTabSaveData Clone()
+        {
+            GraphicsTabSaveData clone = new()
+            {
+                Quality = Quality,
+                Fullscreen = Fullscreen,
+                ResolutionHeight = ResolutionHeight,
+                ResolutionWidth = ResolutionWidth
+            };
+            return clone;
         }
     }
 }

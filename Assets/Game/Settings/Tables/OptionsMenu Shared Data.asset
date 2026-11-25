@@ -35,6 +35,14 @@ MonoBehaviour:
     m_Key: ui.optionmenu.tabs.audio
     m_Metadata:
       m_Items: []
+  - m_Id: 729893405982720
+    m_Key: ui.optionmenu.tabs.apply
+    m_Metadata:
+      m_Items: []
+  - m_Id: 729937194516480
+    m_Key: ui.optionmenu.tabs.back
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

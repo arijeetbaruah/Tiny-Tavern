@@ -11,16 +11,21 @@ namespace Game.OptionsMenu
     public class OptionMenuDataService : IInitializable
     {
         private OptionMenuSaveData _saveData;
+        private OptionMenuSaveData _cloneData;
         private SaveLoadSystem _saveLoadSystem;
         public OptionsMenuUI OptionsMenuUI { get; private set; }
         
         public OptionMenuSaveData SaveData => _saveData;
+        public OptionMenuSaveData CloneData => _cloneData;
         
         private readonly Resolution[] _availableResolutions = null;
         private List<Resolution> _filteredResolutions = new();
         private int _currentResolutionIndex = 0;
         
         public IReadOnlyList<Resolution> Resolutions => _filteredResolutions;
+
+        public delegate void OnValueChangedDelegate();
+        public OnValueChangedDelegate OnValueChanged = delegate { };
 
         public OptionMenuDataService(SaveLoadSystem saveLoadSystem, OptionsMenuUI optionsMenuUI)
         {
@@ -64,8 +69,10 @@ namespace Game.OptionsMenu
             else
             {
                 _saveData = new OptionMenuSaveData();
-                SaveOptions();
+                //SaveOptions();
             }
+            
+            _cloneData = _saveData.Clone();
             Debug.Log("Options loaded");
         }
 
@@ -73,6 +80,17 @@ namespace Game.OptionsMenu
         {
             var data = JsonConvert.SerializeObject(_saveData);
             await _saveLoadSystem.SaveOptions(data);
+        }
+
+        public void Apply()
+        {
+            _saveData = _cloneData.Clone();
+            SaveOptions();
+        }
+
+        public void Reset()
+        {
+            _cloneData = _saveData.Clone();
         }
     }
 }

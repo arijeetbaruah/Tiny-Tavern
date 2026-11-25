@@ -38,6 +38,14 @@ MonoBehaviour:
     m_Localized: Audio
     m_Metadata:
       m_Items: []
+  - m_Id: 729893405982720
+    m_Localized: Apply
+    m_Metadata:
+      m_Items: []
+  - m_Id: 729937194516480
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

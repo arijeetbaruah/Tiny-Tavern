@@ -24,9 +24,15 @@ namespace Game.OptionsMenu
         private List<OptionsMenuTabData> _tabs;
         
         private OptionsMenuTabData? _currentTab;
+        private OptionMenuDataService _optionMenuDataService;
+        
+        [SerializeField] private Button _applyBtn;
+        [SerializeField] private Button _backBtn;
         
         public void Initalize(OptionMenuDataService optionMenuDataService)
         {
+            _optionMenuDataService = optionMenuDataService;
+            
             foreach (var tab in _tabs)
             {
                 var tabData = tab;
@@ -34,13 +40,50 @@ namespace Game.OptionsMenu
                 tab.Tab.Initalize(optionMenuDataService);
                 tab.Btn.onClick.AddListener(() => OpenTab(tabData));
             }
+
+            _optionMenuDataService.OnValueChanged += OnOptionMenuChange;
             
             OpenTab(_tabs[0]);
+            OnOptionMenuChange();
         }
 
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
+        }
+
+        private void OnEnable()
+        {
+            _applyBtn.onClick.AddListener(OnApplyClicked);
+            _backBtn.onClick.AddListener(OnBackClicked);
+        }
+
+        private void OnDisable()
+        {
+            _backBtn.onClick.RemoveListener(OnBackClicked);
+            _applyBtn.onClick.RemoveListener(OnApplyClicked);
+            _optionMenuDataService.OnValueChanged -= OnOptionMenuChange;
+        }
+
+        private void OnApplyClicked()
+        {
+            _optionMenuDataService.Apply();
+        }
+
+        private void OnBackClicked()
+        {
+            _optionMenuDataService.Reset();
+            foreach (var tab in _tabs)
+            {
+                var tabData = tab;
+                
+                tab.Tab.Initalize(_optionMenuDataService);
+            }
+        }
+
+        private void OnOptionMenuChange()
+        {
+            _applyBtn.interactable = _optionMenuDataService.SaveData != _optionMenuDataService.CloneData;
         }
 
         private void OpenTab(OptionsMenuTabData data)

@@ -35,8 +35,17 @@ namespace Game.OptionsMenu
         private void InitializeFullscreenToggle()
         {
             _fullscreenToggle.isOn = Data.GraphicsTab.Fullscreen;
+            _fullscreenToggle.onValueChanged.RemoveAllListeners();
+            _fullscreenToggle.onValueChanged.AddListener(OnFullScreenUpdate);
         }
-        
+
+        private void OnFullScreenUpdate(bool val)
+        {
+            Screen.fullScreen = val;
+            _optionMenuDataService.CloneData.GraphicsTab.Fullscreen = val;
+            _optionMenuDataService.OnValueChanged.Invoke();
+        }
+
         private void InitializeResolution()
         {
             _resolutionDropdown.ClearOptions();
@@ -73,6 +82,10 @@ namespace Game.OptionsMenu
         {
             var resolution = _optionMenuDataService.Resolutions[value];
             Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode);
+            _optionMenuDataService.CloneData.GraphicsTab.ResolutionWidth = resolution.width;
+            _optionMenuDataService.CloneData.GraphicsTab.ResolutionHeight = resolution.height;
+            
+            _optionMenuDataService.OnValueChanged.Invoke();
         }
     }
 }

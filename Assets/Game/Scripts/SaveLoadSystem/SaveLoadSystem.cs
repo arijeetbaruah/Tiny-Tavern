@@ -48,7 +48,7 @@ namespace Game.SaveLoad
         /// <returns>true when options file exist</returns>
         public bool HasOptions()
         {
-            if (!File.Exists(optionsFileLocation))
+            if (!Directory.Exists(optionsFileLocation))
             {
                 return false;
             }
@@ -81,6 +81,7 @@ namespace Game.SaveLoad
             
             string filePath = Path.Combine(fileLocation, fileName);
             await File.WriteAllTextAsync(filePath, data);
+            Debug.Log("Saved " + filePath);
         }
 
         /// <summary>
@@ -91,7 +92,7 @@ namespace Game.SaveLoad
         /// <returns>data saved</returns>
         public async Task<string> LoadFile(string fileName, string fileLocation)
         {
-            if (!File.Exists(fileLocation))
+            if (!Directory.Exists(fileLocation))
             {
                 await Task.Delay(1);
                 return "";
